@@ -1,0 +1,1 @@
+@extends('plugins.modal.index')
