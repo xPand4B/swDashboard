@@ -1,3 +1,0 @@
-@section('plugins.modal.body')
-    ...
-@show

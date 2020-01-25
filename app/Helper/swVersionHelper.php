@@ -152,7 +152,7 @@ class swVersionHelper
      * @param string $version
      * @return string|null
      */
-    public static function GetLinkByVersion(string $version)
+    public static function GetLinkByVersion(string $version): ?string
     {
         if (!in_array($version, self::GetVersions())){
             return null;

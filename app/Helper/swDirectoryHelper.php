@@ -40,11 +40,29 @@ class swDirectoryHelper
             }
         }
 
+        $sw4_directories = self::Format($sw4_directories);
+        $sw5_directories = self::Format($sw5_directories);
+        $sw6_directories = self::Format($sw6_directories);
+
+
         return [
-            '6.x' => array_reverse($sw6_directories),
-            '5.x' => array_reverse($sw5_directories),
-            '4.x' => array_reverse($sw4_directories),
+            '6.x' => $sw6_directories,
+            '5.x' => $sw5_directories,
+            '4.x' => $sw4_directories,
         ];
+    }
+
+    private static function Format(array $directories): array
+    {
+        $tmp = [];
+
+        foreach ($directories as $key => $dir){
+            $splittedPath = explode('/', $dir);
+            $tmp[$key]['version'] = $splittedPath[sizeof($splittedPath) - 1];
+            $tmp[$key]['path'] = $dir;
+        }
+
+        return array_reverse($tmp);
     }
 
     /**

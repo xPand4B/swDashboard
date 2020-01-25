@@ -1,5 +1,8 @@
+import 'jquery';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Swal from 'sweetalert2';
+
 window._ = require('lodash');
-window.Swal = require('sweetalert2');
 
 // Sweetalert Stuff
 window.Swal = Swal.mixin({
@@ -13,8 +16,8 @@ window.Toast = Swal.mixin({
     timer: 4000,
     timerProgressBar: true,
     onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
     }
 });
 

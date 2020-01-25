@@ -2,18 +2,17 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @include('_partials.master.head')
+    <title>{{ config('app.name') }}</title>
 </head>
 <body>
-    @include('_partials.master.javascript')
-
-    @section('master.navigation.topnav')
-        @include('plugins.topnav')
+    @section('master.content')
+        <div id="app">
+            @section('master.content.app')
+                <App></App>
+            @show
+        </div>
     @show
 
-    <div class="container">
-        @section('master.content')
-        @show
-    </div>
-
+    @include('_partials.master.javascript')
 </body>
 </html>
