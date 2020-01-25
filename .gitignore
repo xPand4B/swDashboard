@@ -5,6 +5,7 @@
 /storage/*.key
 /vendor
 /.idea
+.editorconfig
 .env
 .env.backup
 .psh.yaml.override
@@ -13,3 +14,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.DS_Store
