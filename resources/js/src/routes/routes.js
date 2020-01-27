@@ -5,8 +5,11 @@ const routes = [
         children: [
             {
                 path: '/',
-                name: 'management.index',
-                component: () => import('../Pages/Management/Index'),
+                name: 'shoplist.index',
+                components: {
+                    default: () => import('../Pages/Shoplist/Index'),
+                    create: () => import('../Pages/Shoplist/Create')
+                }
             }
         ]
     }

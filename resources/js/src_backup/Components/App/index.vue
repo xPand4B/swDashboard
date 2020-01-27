@@ -1,5 +1,5 @@
 <template>
-    <router-view></router-view>
+    <router-view/>
 </template>
 
 <script>
@@ -7,7 +7,7 @@
         name: "App",
 
         mounted() {
-            console.log('Vue.js successfully mounted!');
-        }
+            console.log('Vue.js mounted successfully!');
+        },
     }
 </script>

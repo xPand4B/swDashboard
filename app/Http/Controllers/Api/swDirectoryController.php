@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Helper\swDirectoryHelper;
-use App\Helper\swVersionHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\swDirectories\swDirectoryCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -15,13 +15,13 @@ class swDirectoryController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return swDirectoryCollection
      */
     public function index(Request $request)
     {
         $swDirectories = swDirectoryHelper::GetInstances();
 
-        return $swDirectories;
+        return new swDirectoryCollection($swDirectories);
     }
 
     /**
@@ -33,17 +33,6 @@ class swDirectoryController extends Controller
     public function store(Request $request)
     {
         $swVersion = request('swVersion');
-        $swDirectory = request('swDirectory');
-
-        $downloadLink = swVersionHelper::GetLinkByVersion($swVersion);
-        $downloadDir = swDirectoryHelper::GetBaseDirFromVersion($swVersion);
-
-//        file_put_contents($downloadDir, fopen($downloadLink, 'r'));
-
-        return response()->json(
-//            'Shopware instance has been created successfully!'
-            [$downloadDir, $downloadLink]
-        );
     }
 
     /**

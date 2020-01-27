@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # DESCRIPTION: Initializes everything for development.
 
-php vendor/bin/phpunit
+php artisan key:generate
+I: php vendor/bin/phpunit
