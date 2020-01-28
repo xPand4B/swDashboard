@@ -125,13 +125,22 @@ class swVersionHelper
      * @param int|null $arrayPosition
      * @return array|mixed
      */
-    public static function GetVersions(int $arrayPosition = null)
+    public static function GetVersions(int $arrayPosition = null, string $majorVersion = null)
     {
         $versions = [];
 
         foreach (self::VERSIONS as $major => $releases){
-            foreach ($releases as $version => $link){
-                array_push($versions, $version);
+            if (is_null($majorVersion)) {
+                foreach ($releases as $version => $link){
+                    array_push($versions, $version);
+                }
+
+            } else {
+                if ($majorVersion[0] === $major[0]) {
+                    foreach ($releases as $version => $link){
+                        array_push($versions, $version);
+                    }
+                }
             }
         }
 
@@ -144,6 +153,17 @@ class swVersionHelper
         }
 
         return $versions[$arrayPosition];
+    }
+
+    public static function GetVersionByMajor(string $majorVersion)
+    {
+        $versions = [];
+
+        foreach (self::VERSIONS as $major => $releases) {
+            if ($majorVersion[0] === $major[0]) {
+
+            }
+        }
     }
 
     /**

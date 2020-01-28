@@ -8,8 +8,16 @@ const routes = [
                 name: 'shoplist.index',
                 components: {
                     default: () => import('../Pages/Shoplist/Index'),
-                    create: () => import('../Pages/Shoplist/Create')
-                }
+                },
+                children: [
+                    {
+                        path: '/',
+                        name: 'shoplist.create',
+                        components: {
+                            default: () => import('../Pages/Shoplist/Create')
+                        }
+                    }
+                ]
             }
         ]
     }

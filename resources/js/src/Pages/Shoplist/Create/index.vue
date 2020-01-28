@@ -35,12 +35,14 @@
         name: "swShoplistCreate",
 
         props: {
-            modalShow: Boolean
+            modalShow: Boolean,
+            major: String,
         },
 
         data() {
             return {
                 apiReturnType: null,
+                createModalId: 'newShopwareInstanceModal',
                 form: {
                     swVersion: null
                 },
@@ -56,7 +58,7 @@
 
         methods: {
             loadAvailableVersions() {
-                axios.get('/api/version')
+                axios.get('/api/version/'+this.major)
                 .then(res => {
                     if (res.status === 200) {
                         this.apiReturnType = res.data['data']['type'];
@@ -67,6 +69,8 @@
                     }
                 })
                 .catch(err => {
+                    this.$root.$emit('bv::toggle::modal', this.createModalId, '#btnToggle');
+
                     Swal.fire({
                         icon: 'error',
                         title: 'Something went wrong!',

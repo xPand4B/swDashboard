@@ -13,11 +13,18 @@ class swVersionController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return swVersionCollection
+     * @return mixed
      */
     public function index(Request $request)
     {
-        $swVersions = swVersionHelper::GetVersions();
+        if (! request('major')) {
+            return response()->json([
+                'Could not find major version in request.', 404
+            ]);
+        }
+
+        $major = request('major');
+        $swVersions = swVersionHelper::GetVersions(null, $major);
 
         return new swVersionCollection($swVersions);
     }

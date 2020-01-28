@@ -7,10 +7,6 @@
         >
             <!-- Right Items -->
             <template v-slot:right-items>
-                <b-button @click="toggleModal" variant="link" class="nav-link mr-3">
-                    <sw-icon name="fas fa-folder-plus"/> Shopware Instance
-                </b-button>
-
                 <b-dropdown variant="link" toggle-class="nav-link" lazy right>
                     <template v-slot:button-content>
                         <sw-icon name="fab fa-php"/>
@@ -27,16 +23,6 @@
                 </b-dropdown>
             </template>
         </sw-topnav>
-
-        <!-- Create Modal -->
-        <b-modal v-model="modalShow" title="Create new Shopware Instance" lazy hide-footer>
-            <template v-slot:modal-title>
-                Create new Shopware Instance
-            </template>
-
-            <router-view name="create" :modalShow="modalShow"/>
-
-        </b-modal>
 
         <b-container class="mt-4">
             <router-view/>
@@ -63,7 +49,8 @@
 
         methods: {
             toggleModal() {
-                this.modalShow = !this.modalShow;
+                // this.modalShow = !this.modalShow;
+                this.$refs[this.createModalId].toggle('#toggle-btn')
             }
         }
     };

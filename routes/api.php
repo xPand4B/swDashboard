@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/version')->group(function() {
     Route::get(
-        '/', [swVersionController::class, 'index']
+        '/{major}', [swVersionController::class, 'index']
     )->name('api.version.index');
 });
 

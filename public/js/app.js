@@ -75302,12 +75302,18 @@ var routes = [{
     name: 'shoplist.index',
     components: {
       "default": function _default() {
-        return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../Pages/Shoplist/Index */ "./resources/js/src/Pages/Shoplist/Index/index.vue"));
-      },
-      create: function create() {
-        return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../Pages/Shoplist/Create */ "./resources/js/src/Pages/Shoplist/Create/index.vue"));
+        return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../Pages/Shoplist/Index */ "./resources/js/src/Pages/Shoplist/Index/index.vue"));
       }
-    }
+    },
+    children: [{
+      path: '/',
+      name: 'shoplist.create',
+      components: {
+        "default": function _default() {
+          return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../Pages/Shoplist/Create */ "./resources/js/src/Pages/Shoplist/Create/index.vue"));
+        }
+      }
+    }]
   }]
 }];
 /* harmony default export */ __webpack_exports__["default"] = (routes);
@@ -75332,8 +75338,8 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/e.heinzl/Nextcloud/Private/WebDev/04-Laravel/swDashboard/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/e.heinzl/Nextcloud/Private/WebDev/04-Laravel/swDashboard/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/e.heinzl/Nextcloud/Private/WebDev/Github/swDashboard/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/e.heinzl/Nextcloud/Private/WebDev/Github/swDashboard/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
