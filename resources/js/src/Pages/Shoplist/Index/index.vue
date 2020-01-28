@@ -57,7 +57,7 @@
                                 <div class="text-center text-muted">
                                     There are no versions installed.
                                     <br>
-                                    Create a new instance using the <b>+</b> button above
+                                    Create a new instance using the <b><sw-icon name="fas fa-folder-plus"/></b> icon above.
                                 </div>
                             </template>
 
