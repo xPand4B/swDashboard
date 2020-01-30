@@ -7,4 +7,3 @@ INCLUDE: ./.npm-run-dev.sh
 INCLUDE: ./.cache.sh
 
 php artisan key:generate
-php artisan storage:link

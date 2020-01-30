@@ -1,3 +1,3 @@
 @section('master.javascript')
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ url(asset('js/app.js')) }}"></script>
 @show

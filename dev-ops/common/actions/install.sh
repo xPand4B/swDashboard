@@ -9,4 +9,3 @@ INCLUDE: ./.npm-run-prod.sh
 INCLUDE: ./.create-shopware-storage.sh
 
 php artisan key:generate
-php artisan storage:link

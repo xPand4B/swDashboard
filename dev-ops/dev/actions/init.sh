@@ -9,5 +9,3 @@ INCLUDE: ./../../common/actions/.npm-run-dev.sh
 INCLUDE: ./../../common/actions/.create-shopware-storage.sh
 
 php artisan key:generate
-php artisan storage:link
-#php artisan migrate:fresh

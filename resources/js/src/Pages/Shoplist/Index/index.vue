@@ -1,13 +1,22 @@
 <template>
     <div>
         <b-card no-body>
-            <b-tabs pills card vertical>
+            <b-tabs pills card vertical lazy active-nav-item-class="bg-info">
                 <b-tab v-for="(versions, major) in availableDirectories"
-                       :title="major"
                        :key="major"
                        @click="setSelectedMajor(major)"
                        class="p-0"
                 >
+                    <template v-slot:title>
+                        <b-row>
+                            <b-col>
+                                {{ major }}
+                            </b-col>
+                            <b-col>
+                                <b-badge v-if="versions.length !== 0" pill variant="dark">{{ versions.length }}</b-badge>
+                            </b-col>
+                        </b-row>
+                    </template>
 
                     <b-card no-body >
                         <b-tabs card>
@@ -27,7 +36,7 @@
 
                                 <div class="row">
                                     <b-col>
-                                        <a :href="getFrontendLink(major, item.version)" class="btn btn-block btn-outline-primary" target="_blank">
+                                        <a :href="replaceDot(item.version)" class="btn btn-block btn-outline-primary" target="_blank">
                                             {{ major.toString() === '6.x' ? 'Storefront' : 'Frontend' }}
                                         </a>
                                     </b-col>
@@ -38,7 +47,12 @@
                                     </b-col>
                                     <b-col>
                                         <b-button variant="outline-danger btn-block" @click="deleteInstance(item.path)">
-                                            <sw-icon name="fas fa-trash"/> Delete
+                                            <div v-if="deleting">
+                                                <b-spinner type="grow" small></b-spinner> Deleting...
+                                            </div>
+                                            <div v-else>
+                                                <b-icon icon="trash"/> Delete
+                                            </div>
                                         </b-button>
                                     </b-col>
                                 </div>
@@ -48,7 +62,7 @@
                             <!-- New Tab Button (Using tabs-end slot) -->
                             <template v-slot:tabs-end>
                                 <b-nav-item @click="createNewInstance" href="#">
-                                    <b> <sw-icon name="fas fa-folder-plus"/> </b>
+                                    <b> <b-icon icon="plus" font-scale="1,5"/> </b>
                                 </b-nav-item>
                             </template>
 
@@ -57,7 +71,7 @@
                                 <div class="text-center text-muted">
                                     There are no versions installed.
                                     <br>
-                                    Create a new instance using the <b><sw-icon name="fas fa-folder-plus"/></b> icon above.
+                                    Create a new instance using the <b><b-icon icon="plus"/></b> icon above.
                                 </div>
                             </template>
 
@@ -115,6 +129,7 @@
                 createModalId: 'newShopwareInstanceModal',
                 selectedMajor: '6-x',
                 modalShow: false,
+                deleting: false,
                 form: {
                     swVersion: null
                 },
@@ -128,7 +143,7 @@
 
         methods: {
             loadDirectories() {
-                axios.get('/api/directory')
+                axios.get('api/directory')
                 .then(res => {
                     if (res.status === 200) {
                         this.apiReturnType = res.data['data']['type'];
@@ -145,7 +160,7 @@
             },
 
             loadAvailableVersions() {
-                axios.get('/api/version/'+this.selectedMajor)
+                axios.get('api/version/'+this.selectedMajor)
                     .then(res => {
                         if (res.status === 200) {
                             this.apiReturnType = res.data['data']['type'];
@@ -182,8 +197,9 @@
                     allowEscapeKey: false,
                     allowOutsideClick: false
                 });
+                Toast.showLoading();
 
-                axios.post('/api/directory', {
+                axios.post('api/directory', {
                     swVersion: this.form.swVersion
                 })
                 .then(res => {
@@ -226,23 +242,28 @@
                 this.modalShow = !this.modalShow;
             },
 
+            toggleDeleting() {
+                this.deleting = !this.deleting;
+            },
+
             deleteInstance(path) {
                 Swal.fire({
                     icon: 'question',
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
-                    confirmButtonText: '<i class="fas fa-trash"></i> Delete',
-                    cancelButtonText: '<i class="fas fa-times"></i> Cancel',
+                    confirmButtonText: 'Delete',
+                    cancelButtonText: 'Cancel',
                     showCancelButton: true,
                     reverseButtons: true,
                     customClass: {
-                        cancelButton: 'col-md-5 btn btn-outline-danger',
-                        confirmButton: 'offset-md-1 col-md-5 btn btn-outline-success',
+                        cancelButton: 'col-md-5 btn btn-outline-info',
+                        confirmButton: 'offset-md-1 col-md-5 btn btn-outline-danger',
                     },
                     buttonsStyling: false
                 })
                 .then(res => {
                     if (res.value) {
+                        this.toggleDeleting();
                         Toast.fire({
                             icon: 'info',
                             title: 'Deleting...',
@@ -251,7 +272,7 @@
                             allowOutsideClick: false
                         });
 
-                        axios.post('/api/directory/delete', {
+                        axios.post('api/directory/delete', {
                             swPathToDelete: path
                         })
                         .then(res => {
@@ -261,6 +282,7 @@
                                 icon: 'success',
                                 title: 'Deleted!'
                             });
+                            this.toggleDeleting();
                         })
                         .catch(err => {
                             Swal.fire({
@@ -274,20 +296,12 @@
             },
 
             replaceDot(string) {
-                return string.toString().replace('.', '-');
-            },
-
-            getFrontendLink(major, version) {
-                if (major === '6.x') {
-                    return this.replaceDot(version)+'/public';
-                } else {
-                    return this.replaceDot(version);
-                }
+                return string.toString().split('.').join('-');
             },
 
             getBackendLink(major, version) {
                 if (major === '6.x') {
-                    return this.replaceDot(version)+'/public/admin';
+                    return this.replaceDot(version)+'/admin';
                 } else {
                     return this.replaceDot(version)+'/backend';
                 }

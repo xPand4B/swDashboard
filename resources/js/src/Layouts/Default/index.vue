@@ -2,14 +2,14 @@
     <div>
         <!-- Topnav -->
         <sw-topnav brand-text="swDashboard"
-                   brand-image="/img/sw6-logo.png"
+                   brand-image="./img/sw6-logo.png"
                    toggleable="sm"
         >
             <!-- Right Items -->
             <template v-slot:right-items>
                 <b-dropdown variant="link" toggle-class="nav-link" lazy right>
                     <template v-slot:button-content>
-                        <sw-icon name="fab fa-php"/> PHP Version
+                        <b-icon icon="php"/> PHP Version
                     </template>
 
                     <b-dropdown-item-button>7.4</b-dropdown-item-button>

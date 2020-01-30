@@ -4,13 +4,15 @@ import 'bootstrap-vue/dist/bootstrap-vue.min.css';
 import Vue from 'vue';
 import router from './src/routes/Router';
 import { App, swIcon } from './src/Components';
-import { BootstrapVue } from 'bootstrap-vue';
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
+
 Vue.component('swIcon', swIcon);
 
 const app = new Vue({
-    el: 'App',
+    el: '#app',
     components: { App },
     router,
 }).$mount('#app');
