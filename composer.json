@@ -15,7 +15,10 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "^6.2"
+        "laravel/framework": "^6.2",
+        "ext-curl": "*",
+        "ext-zip": "*",
+        "ext-readline": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

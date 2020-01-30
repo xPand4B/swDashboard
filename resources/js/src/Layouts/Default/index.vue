@@ -1,119 +1,47 @@
 <template>
     <div>
-        <topnav title="swDashboard"
-                image="/img/sw6-logo.png"
-                image-alt="Shopware 6 - Logo"
+        <!-- Topnav -->
+        <sw-topnav brand-text="swDashboard"
+                   brand-image="./img/sw6-logo.png"
+                   toggleable="sm"
         >
-            <template v-slot:left-items>
-            </template>
-
+            <!-- Right Items -->
             <template v-slot:right-items>
-                <topnav-link name="Shopware Instance"
-                             icon="fas fa-folder-plus"
-                             :dataTarget="'#'+managementCreateModalId"
-                             style="cursor: pointer"
-                />
+                <b-dropdown variant="link" toggle-class="nav-link" lazy right>
+                    <template v-slot:button-content>
+                        <b-icon icon="php"/> PHP Version
+                    </template>
 
-                <topnav-dropdown icon="fab fa-php"
-                                 :items="phpVersions"/>
+                    <b-dropdown-item-button>7.4</b-dropdown-item-button>
+                    <b-dropdown-item-button variant="success">7.3</b-dropdown-item-button>
+                    <b-dropdown-item-button>7.2</b-dropdown-item-button>
+                    <b-dropdown-item-button>7.1</b-dropdown-item-button>
+                    <b-dropdown-divider/>
+                    <b-dropdown-item-button>5.6</b-dropdown-item-button>
+                </b-dropdown>
             </template>
-        </topnav>
+        </sw-topnav>
 
-        <modal :id="managementCreateModalId"
-               title="Create new Shopware Instance"
-        >
-            <template v-slot:body>
-                <form @submit="">
-                    <div class="container">
-                        <div class="form-group">
-                            <label for="swVersion">
-                                Shopware Version:
-                            </label>
-                            <select name="swVersion"
-                                    id="swVersion"
-                                    class="form-control"
-                                    onchange=""
-                                    required
-                            >
-                                <option value="">...</option>
-                            </select>
-                        </div>
-
-                        <custom-input type="text"
-                                      id="swDirectory"
-                                      name="swDirectory"
-                                      hidden
-                                      required/>
-                    </div>
-                    <hr>
-
-                    <custom-button class="btn btn-primary btn-block btn-submit"
-                                   icon="fas fa-folder-plus"
-                    >Create</custom-button>
-                </form>
-            </template>
-        </modal>
-
-        <div class="container">
+        <b-container class="mt-4">
             <router-view/>
-        </div>
+        </b-container>
     </div>
 </template>
 
 <script>
-    import { Topnav, TopnavLink, TopnavDropdown, Modal } from "../../Plugins";
-    import { Icon, CustomButton, CustomInput } from "../../Components";
+    import { swTopnav } from "../../Plugins";
 
     export default {
-        name: "DefaultLayout",
+        name: "sw-layout-default",
 
         components: {
-            Topnav, TopnavLink, TopnavDropdown,
-            Icon, CustomButton, CustomInput,
-            Modal,
+            swTopnav
         },
 
         data() {
             return {
-                managementCreateModalId: 'managementCreateModal',
-                phpVersions: [
-                    { id: 1, name: '7.4', link: '#' },
-                    { id: 2, name: '7.2', link: '#' },
-                    { id: 3, name: '7.1', link: '#' },
-                    { id: 4, divider: true},
-                    { id: 5, name: '5.6', link: '#' },
-                ]
+                createModalId: 'newShopwareInstanceModal'
             }
-        },
-
-        created() {
-            axios.get("/api/version")
-                .then(res => {
-                    if (res.status === 200) {
-                        let swVersions = res.data['swVersions'];
-
-                        this.PopulateVersionDropdown(swVersions);
-                    }
-                }).catch(err => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Could not fetch data correctly!',
-                    text: err,
-                });
-            });
-        },
-
-        methods: {
-            PopulateVersionDropdown(data) {
-                let swVersionDropdown = document.getElementById('swVersion');
-
-                for (const [key, value] of Object.entries(data)) {
-                    let option = document.createElement('option');
-                    option.value = value.toString();
-                    option.innerHTML = value.toString();
-                    swVersionDropdown.append(option);
-                }
-            },
-        },
-    }
+        }
+    };
 </script>

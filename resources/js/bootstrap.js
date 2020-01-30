@@ -1,5 +1,3 @@
-import 'jquery';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Swal from 'sweetalert2';
 
 window._ = require('lodash');

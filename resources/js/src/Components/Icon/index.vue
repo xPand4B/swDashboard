@@ -1,13 +1,19 @@
 <template>
-    <i v-if="name" :class="name"/>
+    <i v-if="name"
+       :class="name"
+       :height="height ? height : null"
+       :width="width ? width : null"
+    />
 </template>
 
 <script>
     export default {
-        name: "icon",
+        name: "sw-icon",
 
         props: {
-            name: String
+            name: String,
+            height: String,
+            width: String,
         }
     }
 </script>

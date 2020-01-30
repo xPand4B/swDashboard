@@ -1,12 +1,15 @@
+import { swLayoutDefault } from "../Layouts";
+import { ShopListIndex } from "../Pages";
+
 const routes = [
     {
         path: '/',
-        component: () => import('../Layouts/Default'),
+        component: swLayoutDefault,
         children: [
             {
                 path: '/',
-                name: 'management.index',
-                component: () => import('../Pages/Management/Index'),
+                name: 'shoplist.index',
+                component: ShopListIndex
             }
         ]
     }

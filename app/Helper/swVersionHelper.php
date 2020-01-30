@@ -19,6 +19,7 @@ class swVersionHelper
      */
     private const VERSIONS = [
         "6.x" => [
+            "6.1.1" => "install_6.1.1_1580132211.zip",
             "6.1.0" => "install_6.1.0_1578903315.zip",
             "6.1.0 (RC4)" => "install_6.1.0-rc4_1578385963.zip",
             "6.1.0 (RC3)" => "install_6.1.0-rc3_1576509709.zip",
@@ -125,13 +126,22 @@ class swVersionHelper
      * @param int|null $arrayPosition
      * @return array|mixed
      */
-    public static function GetVersions(int $arrayPosition = null)
+    public static function GetVersions(int $arrayPosition = null, string $majorVersion = null)
     {
         $versions = [];
 
         foreach (self::VERSIONS as $major => $releases){
-            foreach ($releases as $version => $link){
-                array_push($versions, $version);
+            if (is_null($majorVersion)) {
+                foreach ($releases as $version => $link){
+                    array_push($versions, $version);
+                }
+
+            } else {
+                if ($majorVersion[0] === $major[0]) {
+                    foreach ($releases as $version => $link){
+                        array_push($versions, $version);
+                    }
+                }
             }
         }
 
@@ -144,6 +154,17 @@ class swVersionHelper
         }
 
         return $versions[$arrayPosition];
+    }
+
+    public static function GetVersionByMajor(string $majorVersion)
+    {
+        $versions = [];
+
+        foreach (self::VERSIONS as $major => $releases) {
+            if ($majorVersion[0] === $major[0]) {
+
+            }
+        }
     }
 
     /**

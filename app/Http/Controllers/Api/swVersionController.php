@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\swVersionHelper;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
+use App\Http\Resources\swVersions\swVersionCollection;
 use Illuminate\Http\Request;
 
 class swVersionController extends Controller
@@ -13,14 +13,19 @@ class swVersionController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return mixed
      */
     public function index(Request $request)
     {
-        $swVersions = swVersionHelper::GetVersions();
+        if (! request('major')) {
+            return response()->json([
+                'Could not find major version in request.', 404
+            ]);
+        }
 
-        return response()->json([
-            'swVersions' => $swVersions
-        ]);
+        $major = request('major');
+        $swVersions = swVersionHelper::GetVersions(null, $major);
+
+        return new swVersionCollection($swVersions);
     }
 }
