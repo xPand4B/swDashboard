@@ -9,13 +9,11 @@
             <template v-slot:right-items>
                 <b-dropdown variant="link" toggle-class="nav-link" lazy right>
                     <template v-slot:button-content>
-                        <sw-icon name="fab fa-php"/>
+                        <sw-icon name="fab fa-php"/> PHP Version
                     </template>
 
-                    <b-dropdown-header>PHP Version</b-dropdown-header>
-
                     <b-dropdown-item-button>7.4</b-dropdown-item-button>
-                    <b-dropdown-item-button>7.3</b-dropdown-item-button>
+                    <b-dropdown-item-button variant="success">7.3</b-dropdown-item-button>
                     <b-dropdown-item-button>7.2</b-dropdown-item-button>
                     <b-dropdown-item-button>7.1</b-dropdown-item-button>
                     <b-dropdown-divider/>
@@ -42,15 +40,7 @@
 
         data() {
             return {
-                createModalId: 'newShopwareInstanceModal',
-                modalShow : false
-            }
-        },
-
-        methods: {
-            toggleModal() {
-                // this.modalShow = !this.modalShow;
-                this.$refs[this.createModalId].toggle('#toggle-btn')
+                createModalId: 'newShopwareInstanceModal'
             }
         }
     };

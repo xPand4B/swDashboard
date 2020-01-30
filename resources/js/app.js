@@ -10,9 +10,13 @@ Vue.use(BootstrapVue);
 Vue.component('swIcon', swIcon);
 
 const app = new Vue({
-    el: '#app',
-    components: {
-        App
-    },
-    router
-});
+    el: 'App',
+    components: { App },
+    router,
+}).$mount('#app');
+
+// if (process.env.MIX_ENV_MODE === 'production') {
+//     Vue.config.devtools = false;
+//     Vue.config.debug = false;
+//     Vue.config.silent = true;
+// }
