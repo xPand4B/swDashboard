@@ -5,6 +5,8 @@
 /public/6-*
 /public/5-*
 /public/4-*
+/public/js/*
+/public/css/*
 /storage/*.key
 /vendor
 /.idea
