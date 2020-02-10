@@ -35,13 +35,15 @@ class swPHPSwitchController extends Controller
         $new = request('newPhpVersion');
 
 //        exec('sudo a2dismod php'.$old.' && sudo a2enmod php'.$new. ' && sudo service apache2 restart');
-        exec('sudo bash ./switchPhpVersion.sh '. $old . ' ' . $new);
+        $tmp = [];
+        exec('sudo bash ./switchPhpVersion.sh '. $old . ' ' . $new, $tmp);
 
         return response()->json([
             'msg' => 'PHP Version successfully switched!',
             'data' => [
                 'previousVersion' => $old,
-                'newVersion' => $new
+                'newVersion' => $new,
+                'test' => $tmp
             ]
         ]);
     }
