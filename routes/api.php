@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\swDirectoryController;
+use App\Http\Controllers\Api\swPHPSwitchController;
 use App\Http\Controllers\Api\swVersionController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,12 @@ Route::prefix('/directory')->group(function() {
     )->name('api.directory.destroy');
 });
 
+Route::prefix('/phpversion')->group(function() {
+    Route::get(
+        '/', [swPHPSwitchController::class, 'index']
+    )->name('api.version.php.index');
+
+    Route::post(
+        '/', [swPHPSwitchController::class, 'switch']
+    )->name('api.version.php.switch');
+});
