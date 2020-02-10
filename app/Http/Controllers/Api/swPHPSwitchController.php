@@ -47,6 +47,8 @@ class swPHPSwitchController extends Controller
 
     private function getCurrentPhpVersion(): string
     {
-        return phpversion();
+        $version = explode('.', phpversion());
+
+        return $version[0].'.'.$version[1];
     }
 }
