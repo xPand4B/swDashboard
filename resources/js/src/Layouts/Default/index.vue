@@ -12,6 +12,8 @@
                         <b-icon icon="php"/> PHP Version
                     </template>
 
+                    <b-dropdown-header>Coming soon...</b-dropdown-header>
+
                     <div v-for="phpVersion in availablePhpVersions"
                          :key="phpVersion"
                     >
@@ -64,7 +66,7 @@
             changePhpVersion(newPhpVersion) {
                 if (this.isCurrentPhpVersion(newPhpVersion)) {
                     Toast.fire({
-                        icon: 'error',
+                        icon: 'info',
                         title: 'PHP v'+newPhpVersion+' already set!'
                     });
                     return null;
@@ -87,7 +89,7 @@
                         Toast.close();
                         this.getPhpVersion();
                         Toast.fire({
-                            icon: 'success',
+                            icon: 'error',
                             title: res.data['msg'],
                         });
                     }

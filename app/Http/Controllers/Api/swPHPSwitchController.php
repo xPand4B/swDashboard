@@ -34,7 +34,7 @@ class swPHPSwitchController extends Controller
         $old = $this->getCurrentPhpVersion();
         $new = request('newPhpVersion');
 
-        exec('sudo bash ./switchPhpVersion.sh '. $old . ' ' . $new);
+//        exec('sudo bash ./switchPhpVersion.sh '. $old . ' ' . $new);
 
         return response()->json([
 //            'msg' => 'PHP Version successfully switched!',
