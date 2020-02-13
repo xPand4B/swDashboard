@@ -156,17 +156,6 @@ class swVersionHelper
         return $versions[$arrayPosition];
     }
 
-    public static function GetVersionByMajor(string $majorVersion)
-    {
-        $versions = [];
-
-        foreach (self::VERSIONS as $major => $releases) {
-            if ($majorVersion[0] === $major[0]) {
-
-            }
-        }
-    }
-
     /**
      * Get the link for the specified version.
      *
@@ -208,11 +197,10 @@ class swVersionHelper
             return null;
         }
 
-        if (strpos($links[$arrayPosition], '_6')) {
+        if (strpos($links[$arrayPosition], 'install_6') !== false) {
             return self::SW6_BASE_LINK.$links[$arrayPosition];
         }else{
             return self::SW5_BASE_LINK.$links[$arrayPosition];
         }
-
     }
 }

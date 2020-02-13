@@ -38,7 +38,7 @@ class swDirectoryController extends Controller
 
         if (empty($swVersion)) {
             return response()->json(
-                'The swVersion attribute should not be empty.', 500
+                'The "swVersion" attribute should not be empty.', 500
             );
         }
 
@@ -56,9 +56,17 @@ class swDirectoryController extends Controller
 
         File::makeDirectory($filePath);
 
-        $this->downloadUrlToFile($downloadLink, $filePath.'/'.$fileName);
+        if (! $this->downloadUrlToFile($downloadLink, $filePath.'/'.$fileName)) {
+            File::deleteDirectory($filePath);
+
+            return response()->json(
+                'Shopware version "' . $swVersion . '" could not be downloaded.'
+            );
+        }
 
         if (! $this->unzipFile($filePath.'/'.$fileName, $filePath)) {
+            File::deleteDirectory($filePath);
+
             return response()->json(
                 'Shopware version "' . $swVersion . '" could not be downloaded.', 500
             );
@@ -77,6 +85,12 @@ class swDirectoryController extends Controller
         );
     }
 
+    /**
+     * Returns the major version for a given sw version.
+     *
+     * @param string $version
+     * @return string
+     */
     private function getMajorFromVersion(string $version): string
     {
         $majorDir = '';
@@ -96,13 +110,32 @@ class swDirectoryController extends Controller
         return $majorDir;
     }
 
-    private function downloadUrlToFile(string $url, string $outFileName): void
+    /**
+     * Downloads a file from a given url.
+     *
+     * @param string $url
+     * @param string $outFileName
+     * @return bool
+     */
+    private function downloadUrlToFile(string $url, string $outFileName): bool
     {
         set_time_limit(0);
-        $file = file_get_contents($url);
-        file_put_contents($outFileName, $file);
+
+        if ($file = file_get_contents($url)) {
+            file_put_contents($outFileName, $file);
+            return true;
+        }
+
+        return false;
     }
 
+    /**
+     * Unzips a file to a given path.
+     *
+     * @param string $file
+     * @param string $extractTo
+     * @return bool
+     */
     private function unzipFile(string $file, string $extractTo): bool
     {
         $zipArchive = new ZipArchive();
