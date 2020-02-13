@@ -52,12 +52,18 @@ class swDirectoryHelper
         ];
     }
 
+    /**
+     * Format directories.
+     *
+     * @param array $directories
+     * @return array
+     */
     private static function Format(array $directories): array
     {
         $tmp = [];
 
         foreach ($directories as $key => $dir){
-            $splittedPath = explode('/', $dir);
+            $splittedPath = explode(DIRECTORY_SEPARATOR, $dir);
             $tmp[$key]['version'] = $splittedPath[sizeof($splittedPath) - 1];
             $tmp[$key]['path'] = $dir;
         }
