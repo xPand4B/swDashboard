@@ -17,3 +17,6 @@ if (mix.config.hmr) {
         }
     });
 }
+
+mix.setPublicPath('public');
+mix.setResourceRoot('../');

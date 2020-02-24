@@ -1,5 +1,5 @@
-import { swLayoutDefault } from "../Layouts";
-import { ShopListIndex } from "../Pages";
+import { swLayoutDefault } from '../layouts';
+import { ShoplistIndex} from '../pages';
 
 const routes = [
     {
@@ -9,7 +9,7 @@ const routes = [
             {
                 path: '/',
                 name: 'shoplist.index',
-                component: ShopListIndex
+                component: ShoplistIndex
             }
         ]
     }

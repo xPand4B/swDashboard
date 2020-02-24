@@ -2,11 +2,9 @@
 /public/hot
 /public/storage
 /public/*.js
-/public/6-*
-/public/5-*
-/public/4-*
-/public/js/*
-/public/css/*
+/public/6-*/
+/public/5-*/
+/public/4-*/
 /storage/*.key
 /vendor
 /.idea
