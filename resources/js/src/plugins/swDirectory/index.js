@@ -5,12 +5,11 @@ const DirectoryStore = {
     fetch() {
         const me = this;
 
-        axios.get('api/directory')
+        fetch('api/directory')
+            .then(data => data.json())
             .then(res => {
-                if (res.status === 200) {
-                    me.apiReturnType = res.data['data']['type'];
-                    me.availableDirectories = res.data['data']['attributes'];
-                }
+                me.apiReturnType = res.data.type;
+                me.availableDirectories = res.data.attributes;
             })
             .catch(err => {
                 Swal.fire({
@@ -51,22 +50,30 @@ const DirectoryStore = {
                 });
                 Toast.showLoading();
 
-                axios.post('api/directory/delete', {
-                    swPathToDelete: path
-                }).then(res => {
-                    me.fetch();
-                    Toast.close();
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Deleted!'
+                fetch('api/directory/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        swPathToDelete: path
+                    })
+                }).then(data => data.json())
+                    .then(res => {
+                        me.fetch();
+                        Toast.close();
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Deleted!'
+                        });
+                    }).catch(err => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Something went wrong!',
+                            text: err,
+                        });
                     });
-                }).catch(err => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Something went wrong!',
-                        text: err,
-                    });
-                });
             }
         });
     },
@@ -80,13 +87,7 @@ const swDirectoryPlugin = {
             })
         });
 
-        Object.defineProperty(Vue.prototype, '$swDirectories', {
-            get() {
-                const me = this;
-
-                return me.$root.swDirectories;
-            }
-        });
+        Vue.prototype.$swDirectories = DirectoryStore;
     }
 };
 
