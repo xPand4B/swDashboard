@@ -8,6 +8,7 @@ A dashboard to manage multiple Shopware installations on your local machine.
 # Table of content
 * [How to install](#how-to-install)
     * [Settings](#settings)
+    * [Install](#install)
     * [Console Command](#console-command)
 
 ## How to install
@@ -19,6 +20,9 @@ After you have that go inside the `.psh.yaml`, crap all settings you wanna chang
 **IMPORTANT:** You need to keep the original hierarchy!
 
 (e.x. you wanna override a const, there has to be a `const:` at the beginning.)
+
+### Install
+To install to simply type `./psh.phar` install.
 
 
 ### Console command
