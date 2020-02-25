@@ -1,13 +1,12 @@
 <template>
     <div>
         <sw-topnav
-            brand-text="swDashboard"
-            brand-image="./img/sw6-logo.png"
+            :brand-text="brandText"
+            :brand-image="brandImage"
             toggleable="sm"
         />
 
         <sw-content/>
-
     </div>
 </template>
 
@@ -20,6 +19,11 @@
 
         components: {
             swTopnav, swContent
-        }
+        },
+
+        data: () => ({
+            brandText: 'swDashboard',
+            brandImage: './img/sw6-logo.png'
+        })
     };
 </script>

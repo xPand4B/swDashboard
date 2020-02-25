@@ -17,20 +17,19 @@ const ModalStore = {
     loadAvailableVersions() {
         const me = this;
 
-        axios.get('api/version/' + me.selectedMajor)
+        fetch('api/version/' + me.selectedMajor)
+            .then(data => data.json())
             .then(res => {
-                if (res.status === 200) {
-                    me.apiReturnType = res.data['data']['type'];
+                me.apiReturnType = res.data.type;
 
-                    let temp = [];
-                    temp.push({ text: '', value: null, selected: true });
+                let temp = [];
+                temp.push({ text: '', value: null, selected: true });
 
-                    res.data['data']['attributes'].map((version, index) => {
-                        temp.push({ value: version, text: version});
-                    });
+                res.data.attributes.map((version, index) => {
+                    temp.push({ value: version, text: version});
+                });
 
-                    me.versions = temp;
-                }
+                me.versions = temp;
             })
             .catch(err => {
                 me.toggle();
@@ -52,14 +51,7 @@ const CreateModalPlugin = {
             })
         });
 
-        Object.defineProperty(Vue.prototype, '$createModal', {
-            get() {
-                const me = this;
-
-                return me.$root.createModalStore;
-            }
-        });
-
+        Vue.prototype.$createModal = ModalStore;
         Vue.component('create-modal', CreateModal);
     }
 };
