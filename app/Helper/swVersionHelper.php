@@ -33,6 +33,8 @@ class swVersionHelper
         ],
 
         "5.6.x" => [
+            "5.6.6" => "install_5.6.6_f8cbea93398b121a4471c35795ce1a8822176d32.zip",
+            "5.6.5" => "install_5.6.5_482a9c1c64e67f009c47b25ebbf97a7f9f06066a.zip",
             "5.6.4" => "install_5.6.4_3540d53b7727442cde5287b669c7d3b94f8a07c7.zip",
             "5.6.3" => "install_5.6.3_fec7645a72a0393f8a39f48ddd6c27e138f44513.zip",
             "5.6.2" => "install_5.6.2_6cadc5c14bad4ea8839395461ea42dbc359e9666.zip",
