@@ -19,7 +19,7 @@ class swVersionController extends Controller
     {
         if (! request('major')) {
             return response()->json([
-                'Could not find major version in request.', 404
+                'Could not find major version in request.', 422
             ]);
         }
 
