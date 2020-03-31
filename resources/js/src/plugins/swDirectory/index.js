@@ -1,15 +1,16 @@
 const DirectoryStore = {
     apiReturnType: null,
     availableDirectories: null,
+    selectedMajor: '6-x',
+    comments: [],
 
-    fetch() {
+    async fetch() {
         const me = this;
 
-        fetch('api/directory')
-            .then(data => data.json())
+        await axios.get('api/directory')
             .then(res => {
-                me.apiReturnType = res.data.type;
-                me.availableDirectories = res.data.attributes;
+                me.apiReturnType = res.data.data.type;
+                me.availableDirectories = res.data.data.attributes;
             })
             .catch(err => {
                 Swal.fire({
@@ -18,6 +19,62 @@ const DirectoryStore = {
                     text: err
                 });
             });
+
+        const selectedVersion = Object.values(me.availableDirectories)[0][0].version;
+
+        this.getComments(selectedVersion);
+    },
+
+    async addComment(version, comment) {
+        const me = this;
+
+        await axios.post(`api/comment/${version}`, {
+            comments: comment
+        }).catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Could not fetch comments!',
+                text: err
+            });
+        });
+
+        me.getComments(version);
+    },
+
+    async getComments(version) {
+        const me = this;
+
+        me.comments = [];
+
+        await axios.get(`api/comment/${version}`)
+            .then(res => {
+                if (res.data.comments !== undefined) {
+                    me.comments = res.data.comments;
+                }
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Could not fetch comments!',
+                    text: err
+                });
+            });
+    },
+
+    async deleteComment(version, comment) {
+        const me = this;
+
+        await axios.post(`api/comment/${version}/delete`, {
+            comments: comment
+        }).catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Could not delete comment!',
+                text: err
+            });
+        });
+
+        await me.getComments(version);
     },
 
     deleteInstance(path = '') {
@@ -50,30 +107,22 @@ const DirectoryStore = {
                 });
                 Toast.showLoading();
 
-                fetch('api/directory/delete', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        swPathToDelete: path
-                    })
-                }).then(data => data.json())
-                    .then(res => {
-                        me.fetch();
-                        Toast.close();
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Deleted!'
-                        });
-                    }).catch(err => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Something went wrong!',
-                            text: err,
-                        });
+                axios.post('api/directory/delete', {
+                    swPathToDelete: path
+                }).then(res => {
+                    me.fetch();
+                    Toast.close();
+                    Toast.fire({
+                      icon: 'success',
+                        title: 'Deleted!'
                     });
+                }).catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Something went wrong!',
+                        text: err,
+                    });
+                });
             }
         });
     },
