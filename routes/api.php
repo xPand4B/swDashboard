@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\swCommentController;
 use App\Http\Controllers\Api\swDirectoryController;
 use App\Http\Controllers\Api\swPHPSwitchController;
 use App\Http\Controllers\Api\swVersionController;
@@ -33,4 +34,18 @@ Route::prefix('/phpversion')->group(function() {
     Route::post(
         '/', [swPHPSwitchController::class, 'switch']
     )->name('api.version.php.switch');
+});
+
+Route::prefix('/comment')->group(function() {
+    Route::post(
+        '/{version}', [swCommentController::class, 'store']
+    )->name('api.comment.store');
+
+   Route::get(
+       '/{version}', [swCommentController::class, 'show']
+   )->name('api.comment.show');
+
+    Route::post(
+        '/{version}/delete', [swCommentController::class, 'destroy']
+    )->name('api.comment.destroy');
 });

@@ -14,18 +14,17 @@ const ModalStore = {
         me.show = !!!me.show;
     },
 
-    loadAvailableVersions() {
+    async loadAvailableVersions() {
         const me = this;
 
-        fetch('api/version/' + me.selectedMajor)
-            .then(data => data.json())
+        await axios.get('api/version/' + me.selectedMajor)
             .then(res => {
-                me.apiReturnType = res.data.type;
+                me.apiReturnType = res.data.data.type;
 
                 let temp = [];
                 temp.push({ text: '', value: null, selected: true });
 
-                res.data.attributes.map((version, index) => {
+                res.data.data.attributes.map((version, index) => {
                     temp.push({ value: version, text: version});
                 });
 
