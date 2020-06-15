@@ -19,6 +19,7 @@ class swVersionHelper
      */
     private const VERSIONS = [
         "6.x" => [
+            "6.2.1" => "install_6.2.1_1592219982.zip",
             "6.2.0" => "install_6.2.0_1589874223.zip",
             "6.2.0 (RC1)" => "install_6.2.0-RC1_1587999999.zip",
             "6.1.5" => "install_6.1.5_1585830011.zip",
@@ -37,6 +38,7 @@ class swVersionHelper
         ],
 
         "5.6.x" => [
+            "5.6.7" => "install_5.6.7_8cec71ed6df4804610664944e3f67e5d3a61adea.zip",
             "5.6.6" => "install_5.6.6_f8cbea93398b121a4471c35795ce1a8822176d32.zip",
             "5.6.5" => "install_5.6.5_482a9c1c64e67f009c47b25ebbf97a7f9f06066a.zip",
             "5.6.4" => "install_5.6.4_3540d53b7727442cde5287b669c7d3b94f8a07c7.zip",
