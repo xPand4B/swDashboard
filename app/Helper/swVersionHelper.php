@@ -19,6 +19,7 @@ class swVersionHelper
      */
     private const VERSIONS = [
         "6.x" => [
+            "6.2.2" => "install_6.2.2_1592398977.zip",
             "6.2.1" => "install_6.2.1_1592219982.zip",
             "6.2.0" => "install_6.2.0_1589874223.zip",
             "6.2.0 (RC1)" => "install_6.2.0-RC1_1587999999.zip",
