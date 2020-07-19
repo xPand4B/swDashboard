@@ -181,12 +181,12 @@
 
             onTagDeleteClick(version, comment) {
                 this.$swDirectories.deleteComment(version, comment);
-                console.log(version, comment);
+                // console.log(version, comment);
             },
 
             onEnter(version) {
                 if (event.which === 13) {
-                    console.log(this.form.comment, version);
+                    // console.log(this.form.comment, version);
                     this.$swDirectories.addComment(version, this.form.comment);
                     this.form.comment = '';
                 }

@@ -29,7 +29,7 @@ class swCommentController extends Controller
         }
 
         $version = request('version');
-        $comment = request('comment');
+        $comment = request('comments');
 
         $file = $this->getCommentFileByVersion($version);
 
