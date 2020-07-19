@@ -22,15 +22,14 @@ class swCommentController extends Controller
             );
         }
 
-        if (! request('comments')) {
+        if (! $request->has('comments')) {
             return response()->json(
                 "No comments set.", 422
             );
         }
 
-
         $version = request('version');
-        $comments = request('comments');
+        $comment = request('comment');
 
         $file = $this->getCommentFileByVersion($version);
 
@@ -45,10 +44,10 @@ class swCommentController extends Controller
             $existingComments = file_get_contents($file).'|';
         }
 
-        file_put_contents($file, $existingComments.$comments);
+        file_put_contents($file, $existingComments.$comment);
 
         return response()->json(
-            "Added comments: ".$comments, 201
+            "Added comment: ".$comment, 201
         );
     }
 
@@ -99,7 +98,7 @@ class swCommentController extends Controller
             );
         }
 
-        if (! request('comments')) {
+        if (! request('comment')) {
             return response()->json(
                 "No comments set.", 422
             );

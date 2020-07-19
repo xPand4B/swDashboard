@@ -29,3 +29,10 @@ environments:
   cache:
     paths:
       - "dev-ops/cache/actions"
+
+  github:
+    templates:
+      - source: "dev-ops/github/templates/.env.dist"
+        destination: ".env"
+    paths:
+      - "dev-ops/github/actions"

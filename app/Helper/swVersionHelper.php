@@ -7,35 +7,40 @@ class swVersionHelper
     /**
      * @var string
      */
-    private const SW6_BASE_LINK = "https://releases.shopware.com/sw6/";
+    const SW6_BASE_LINK = "https://releases.shopware.com/sw6/";
 
     /**
      * @var string
      */
-    private const SW5_BASE_LINK = "https://releases.shopware.com/";
+    const SW5_BASE_LINK = "https://releases.shopware.com/";
 
     /**
      * @var array
      */
-    private const VERSIONS = [
-        "6.x" => [
+    const VERSIONS = [
+        "6.2.x" => [
+            "6.2.3" => "install_6.2.3_1594641397.zip",
             "6.2.2" => "install_6.2.2_1592398977.zip",
             "6.2.1" => "install_6.2.1_1592219982.zip",
             "6.2.0" => "install_6.2.0_1589874223.zip",
-            "6.2.0 (RC1)" => "install_6.2.0-RC1_1587999999.zip",
+            "6.2.0_RC1" => "install_6.2.0-RC1_1587999999.zip",
+        ],
+        "6.1.x" => [
             "6.1.5" => "install_6.1.5_1585830011.zip",
             "6.1.4" => "install_6.1.4_1584369563.zip",
             "6.1.3" => "install_6.1.3_1582123990.zip",
             "6.1.2" => "install_6.1.2_1581958492.zip",
             "6.1.1" => "install_6.1.1_1580132211.zip",
             "6.1.0" => "install_6.1.0_1578903315.zip",
-            "6.1.0 (RC4)" => "install_6.1.0-rc4_1578385963.zip",
-            "6.1.0 (RC3)" => "install_6.1.0-rc3_1576509709.zip",
-            "6.1.0 (RC2)" => "install_6.1.0-rc2_1575987114.zip",
-            "6.1.0 (RC1)" => "install_6.1.0-rc1_1575898588.zip",
-            "6.0.0 (EA2)" => "install_6.0.0_ea2_1571125323.zip",
-            "6.0.0 (EA1.1)" => "install_6.0.0_ea1.1_1566459663.zip",
-            "6.0.0 (EA1)" => "install_6.0.0_ea1_1563354247.zip"
+            "6.1.0_RC4" => "install_6.1.0-rc4_1578385963.zip",
+            "6.1.0_RC3" => "install_6.1.0-rc3_1576509709.zip",
+            "6.1.0_RC2" => "install_6.1.0-rc2_1575987114.zip",
+            "6.1.0_RC1" => "install_6.1.0-rc1_1575898588.zip",
+        ],
+        "6.0.x" => [
+            "6.0.0_EA2" => "install_6.0.0_ea2_1571125323.zip",
+            "6.0.0_EA1.1" => "install_6.0.0_ea1.1_1566459663.zip",
+            "6.0.0_EA1" => "install_6.0.0_ea1_1563354247.zip"
         ],
 
         "5.6.x" => [
@@ -126,6 +131,7 @@ class swVersionHelper
             "5.0.1" => "install_5.0.1_2ec5c1c8427afdc5654aec88bf51a80db93304ef.zip",
             "5.0.0" => "install_5.0.0_c122de4b3eba2d45f1085cc8df74ff96804179ec.zip",
         ],
+
         "4.3.x" => [
             "4.3.7" => "install_4.3.7_86f0ac9f4633586198cd12da1bd311130ac85de3.zip",
         ]
@@ -135,6 +141,7 @@ class swVersionHelper
      * Get all release versions.
      *
      * @param int|null $arrayPosition
+     * @param string|null $majorVersion
      * @return array|mixed
      */
     public static function GetVersions(int $arrayPosition = null, string $majorVersion = null)
@@ -210,8 +217,8 @@ class swVersionHelper
 
         if (strpos($links[$arrayPosition], 'install_6') !== false) {
             return self::SW6_BASE_LINK.$links[$arrayPosition];
-        }else{
-            return self::SW5_BASE_LINK.$links[$arrayPosition];
         }
+
+        return self::SW5_BASE_LINK.$links[$arrayPosition];
     }
 }

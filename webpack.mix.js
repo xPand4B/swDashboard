@@ -1,21 +1,22 @@
 const mix = require('laravel-mix');
 
-mix.js('resources/js/app.js', 'public/js')
+/**
+ * --------------------------------------------------------------------------
+ * | Application
+ * --------------------------------------------------------------------------
+ */
+mix
+    .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
-if (mix.config.hmr) {
-    mix.webpackConfig({
-        output: {
-            chunkFilename: '[name].js',
-        }
-    });
-} else {
-    mix.webpackConfig({
-        output: {
-            publicPath: '/',
-            chunkFilename: '[name].[chunkhash].js',
-        }
-    });
+/**
+ * --------------------------------------------------------------------------
+ * | Configuration Stuff
+ * --------------------------------------------------------------------------
+ */
+if (mix.inProduction()) {
+    mix.version();
+    mix.sourceMaps();
 }
 
 mix.setPublicPath('public');

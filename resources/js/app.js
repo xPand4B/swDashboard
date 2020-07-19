@@ -7,7 +7,7 @@ import routes from "./src/routes/routes";
 
 // configure router
 const router = new VueRouter({
-    mode: 'hash',
+    mode: 'history',
     routes,
 });
 
