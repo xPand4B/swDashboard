@@ -1,6 +1,8 @@
 # Shopware Dashboard
 A dashboard to manage multiple Shopware installations on your local machine.
 
+![Build Status](https://github.com/xPand4B/swDashboard/workflows/CI/badge.svg)
+
 - **License**: MIT License
 - **Github Repository**: <https://github.com/xPand4B/swDashboard>
 - **Issue Tracker**: <https://github.com/xPand4B/swDashboard/issues>
