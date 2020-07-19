@@ -98,7 +98,7 @@ class swCommentController extends Controller
             );
         }
 
-        if (! request('comment')) {
+        if (! request('comments')) {
             return response()->json(
                 "No comments set.", 422
             );
