@@ -23,7 +23,8 @@
     "require-dev": {
         "facade/ignition": "^1.4",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^3.0"
+        "nunomaduro/collision": "^3.0",
+        "ext-json": "*"
     },
     "config": {
         "optimize-autoloader": true,
@@ -40,12 +41,20 @@
             "App\\": "app/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
+        ],
+        "unit": [
+            "php vendor/bin/phpunit --verbose --colors=always --coverage-text --coverage-html ./storage/builds/html-coverage"
         ]
     }
 }

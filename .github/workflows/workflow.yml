@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - master
+      - release
+  push:
+    branches:
+      - master
+      - release
+
+jobs:
+  setup:
+    name: "setup"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.3'
+          tools: phpunit
+      - name: Give access rights
+        run: chmod +x ./psh.phar
+
+  build:
+    name: "build"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.3'
+          tools: phpunit
+      - name: Give access rights
+        run: chmod +x ./psh.phar
+      - name: Run init script
+        run: ./psh.phar install
+
+  phpunit:
+    name: "testing - phpunit"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.3'
+          tools: phpunit
+      - name: Give access rights
+        run: chmod +x ./psh.phar
+      - name: Run init script
+        run: ./psh.phar install
+      - name: Run PHPUnit
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: app/Components/Common/Database/database.sqlite
+        run: ./psh.phar dev:unit
+
+  jest:
+    name: "testing - jest"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.3'
+          tools: phpunit
+      - name: Give access rights
+        run: chmod +x ./psh.phar
+      - name: Run init script
+        run: ./psh.phar github:init
+      - name: Run jest
+        run: ./psh.phar github:unit-jest

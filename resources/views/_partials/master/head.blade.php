@@ -6,6 +6,6 @@
 
 <!-- CSS -->
 @section('master.stylesheet')
-    <link type="text/css" rel="stylesheet" href="{{ url(asset('css/app.css')) }}">
+    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="shortcut icon" href="{{ url(asset('favicon.ico')) }}">
 @show

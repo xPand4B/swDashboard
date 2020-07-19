@@ -7,7 +7,7 @@
         name: "App",
 
         mounted() {
-            console.log('Vue.js successfully mounted!');
+            // console.log('Vue.js successfully mounted!');
 
             this.$swDirectories.fetch();
         }
