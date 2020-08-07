@@ -91,7 +91,7 @@ class swVersionHelperTest extends TestCase
         $response = swVersionHelper::GetLinks(0);
 
         self::assertSame(
-            swVersionHelper::SW6_BASE_LINK.$this->getLatestLink(), $response
+            swVersionHelper::SW6_BASE_LINK_NEW.$this->getLatestLink(), $response
         );
 
         $response = swVersionHelper::GetLinks(999999999);

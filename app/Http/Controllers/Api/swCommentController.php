@@ -12,24 +12,22 @@ class swCommentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param string $version
      * @return mixed
      */
-    public function store(Request $request)
+    public function store(Request $request, string $version)
     {
-        if (! request('version')) {
-            return response()->json(
-                "Version could not be found.", 404
-            );
-        }
-
         if (! $request->has('comments')) {
             return response()->json(
                 "No comments set.", 422
             );
         }
 
-        $version = request('version');
-        $comment = request('comments');
+        $request->validate([
+            'comments' => 'string',
+        ]);
+
+        $comment = $request->get('comments');
 
         $file = $this->getCommentFileByVersion($version);
 
@@ -88,24 +86,22 @@ class swCommentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Request $request
+     * @param string $version
      * @return mixed
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, string $version)
     {
-        if (! request('version')) {
-            return response()->json(
-                "Version could not be found.", 404
-            );
-        }
-
-        if (! request('comments')) {
+        if (! $request->has('comments')) {
             return response()->json(
                 "No comments set.", 422
             );
         }
 
-        $version = request('version');
-        $comments = explode('|', request('comments'));
+        $request->validate([
+            'comments' => 'string',
+        ]);
+
+        $comments = explode('|', $request->get('comments'));
 
         $file = $this->getCommentFileByVersion($version);
 
@@ -141,7 +137,7 @@ class swCommentController extends Controller
         }
 
         return response()->json(
-            "Comments have been deleted.", 200
+            "Comment has been deleted.", 200
         );
     }
 
