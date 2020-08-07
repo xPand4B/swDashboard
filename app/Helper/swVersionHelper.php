@@ -7,6 +7,11 @@ class swVersionHelper
     /**
      * @var string
      */
+    const SW6_BASE_LINK_NEW = "https://www.shopware.com/en/Download/redirect/version/sw6/file/";
+
+    /**
+     * @var string
+     */
     const SW6_BASE_LINK = "https://releases.shopware.com/sw6/";
 
     /**
@@ -18,6 +23,10 @@ class swVersionHelper
      * @var array
      */
     const VERSIONS = [
+        "6.3.x" => [
+            "6.3.0.1" => "install_v6.3.0.1_80e352951cf21a6e4c4d0c975399ff351ccdadc8.zip",
+            "6.3.0.0" => "install_v6.3.0.0_06f83c91b1c72099392ed37c88c931c7b19739b2.zip",
+        ],
         "6.2.x" => [
             "6.2.3" => "install_6.2.3_1594641397.zip",
             "6.2.2" => "install_6.2.2_1592398977.zip",
@@ -188,16 +197,19 @@ class swVersionHelper
 
         $arrayPosition = array_search($version, self::GetVersions());
 
-        return self::GetLinks($arrayPosition);
+        $isNewSw6Link = strlen($version) === 7;
+
+        return self::GetLinks($arrayPosition, $isNewSw6Link);
     }
 
     /**
      * Get all release links.
      *
      * @param int|null $arrayPosition
+     * @param bool $isNewSw6Link
      * @return array|mixed
      */
-    public static function GetLinks(int $arrayPosition = null)
+    public static function GetLinks(int $arrayPosition = null, bool $isNewSw6Link = false)
     {
         $links = [];
 
@@ -213,6 +225,10 @@ class swVersionHelper
 
         if (!array_key_exists($arrayPosition, $links)){
             return null;
+        }
+
+        if ($isNewSw6Link || strpos($links[$arrayPosition], 'install_v6') !== false) {
+            return self::SW6_BASE_LINK_NEW.$links[$arrayPosition];
         }
 
         if (strpos($links[$arrayPosition], 'install_6') !== false) {

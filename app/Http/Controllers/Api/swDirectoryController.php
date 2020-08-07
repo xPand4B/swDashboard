@@ -16,10 +16,9 @@ class swDirectoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return swDirectoryCollection
      */
-    public function index(Request $request): swDirectoryCollection
+    public function index(): swDirectoryCollection
     {
         $swDirectories = swDirectoryHelper::GetInstances();
 
@@ -34,7 +33,10 @@ class swDirectoryController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $swVersion = request('swVersion');
+        $swVersion = $request->get('swVersion');
+        $request->validate([
+            'swVersion' => 'string|min:5|max:9'
+        ]);
 
         if (empty($swVersion)) {
             return response()->json(
@@ -159,7 +161,10 @@ class swDirectoryController extends Controller
      */
     public function destroy(Request $request): JsonResponse
     {
-        $swPathToDelete = request('swPathToDelete');
+        $swPathToDelete = $request->get('swPathToDelete');
+        $request->validate([
+            'swPathToDelete' => 'string'
+        ]);
 
         if (empty($swPathToDelete)) {
             return response()->json(
