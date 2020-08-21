@@ -1,3 +1,5 @@
+import Vue from 'vue';
+import VueRouter from "vue-router";
 import { swLayoutDefault } from '../layouts';
 import { ShoplistIndex} from '../pages';
 
@@ -15,4 +17,9 @@ const routes = [
     }
 ];
 
-export default routes;
+Vue.use(VueRouter);
+
+export default new VueRouter({
+    mode: 'history',
+    routes,
+});

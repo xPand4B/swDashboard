@@ -24,6 +24,7 @@ class swVersionHelper
      */
     const VERSIONS = [
         "6.3.x" => [
+            "6.3.0.2" => "install_v6.3.0.2_b5788541058257e6114b7405a41a36946132af9c.zip",
             "6.3.0.1" => "install_v6.3.0.1_80e352951cf21a6e4c4d0c975399ff351ccdadc8.zip",
             "6.3.0.0" => "install_v6.3.0.0_06f83c91b1c72099392ed37c88c931c7b19739b2.zip",
         ],
@@ -53,6 +54,7 @@ class swVersionHelper
         ],
 
         "5.6.x" => [
+            "5.6.8" => "install_5.6.8_7b49bfb8ea0d5269b349722157fe324a341ed28e.zip",
             "5.6.7" => "install_5.6.7_8cec71ed6df4804610664944e3f67e5d3a61adea.zip",
             "5.6.6" => "install_5.6.6_f8cbea93398b121a4471c35795ce1a8822176d32.zip",
             "5.6.5" => "install_5.6.5_482a9c1c64e67f009c47b25ebbf97a7f9f06066a.zip",
