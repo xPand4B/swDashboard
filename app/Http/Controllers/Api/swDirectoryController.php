@@ -104,9 +104,6 @@ class swDirectoryController extends Controller
             case '5':
                 $majorDir = 'sw5';
                 break;
-            case '4':
-                $majorDir = 'sw4';
-                break;
         }
 
         return $majorDir;

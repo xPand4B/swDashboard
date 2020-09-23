@@ -25,6 +25,5 @@ class swDirectoryCollectionTest extends TestCase
 
         self::assertArrayHasKey('6.x', $response['data']['attributes']);
         self::assertArrayHasKey('5.x', $response['data']['attributes']);
-        self::assertArrayHasKey('4.x', $response['data']['attributes']);
     }
 }

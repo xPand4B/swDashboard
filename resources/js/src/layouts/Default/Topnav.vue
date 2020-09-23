@@ -1,19 +1,25 @@
 <template>
     <div>
-        <b-navbar :toggleable="toggleable"
-                  :type="type"
-                  :variant="variant"
-                  :sticky="sticky"
+        <b-navbar
+            :toggleable="toggleable"
+              :type="type"
+              :variant="variant"
+              :sticky="sticky"
         >
             <b-container>
-                <b-navbar-brand :href="brandLink" tag="h1" class="mb-0">
-                    <img v-if="brandImage"
-                         class="mr-2"
-                         :src="brandImage"
-                         :alt="brandImageAlt ? brandImageAlt : null"
-                         :height="brandImageHeight"
-                         :width="brandImageWidth"
-                    >
+                <b-navbar-brand
+                    :href="brandLink"
+                    tag="h1"
+                    class="mb-0"
+                >
+                    <img
+                        v-if="brandImage"
+                        class="mr-2"
+                        :src="brandImage"
+                        :alt="brandImageAlt ? brandImageAlt : null"
+                        :height="brandImageHeight"
+                        :width="brandImageWidth"
+                    />
                     {{ brandText }}
                 </b-navbar-brand>
 
@@ -29,7 +35,8 @@
                     </b-navbar-nav>
 
                     <!-- Right Items -->
-                    <b-navbar-nav v-if="hasSlot('right-items')"
+                    <b-navbar-nav
+                        v-if="hasSlot('right-items')"
                         class="ml-auto"
                     >
                         <slot name="right-items"/>
