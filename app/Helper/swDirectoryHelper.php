@@ -22,33 +22,25 @@ class swDirectoryHelper
 
         $sw6_directories = [];
         $sw5_directories = [];
-        $sw4_directories = [];
 
         foreach (File::directories($path) as $dir){
             switch(File::basename($dir)){
-                case 'sw4':
-                    $sw4_directories = File::directories($dir);
+                case 'sw6':
+                    $sw6_directories = File::directories($dir);
                     break;
 
                 case 'sw5':
                     $sw5_directories = File::directories($dir);
                     break;
-
-                case 'sw6':
-                    $sw6_directories = File::directories($dir);
-                    break;
             }
         }
 
-        $sw4_directories = self::Format($sw4_directories);
         $sw5_directories = self::Format($sw5_directories);
         $sw6_directories = self::Format($sw6_directories);
-
 
         return [
             '6.x' => $sw6_directories,
             '5.x' => $sw5_directories,
-            '4.x' => $sw4_directories,
         ];
     }
 
@@ -82,9 +74,6 @@ class swDirectoryHelper
         $baseDir = '';
 
         switch ($version[0]){
-            case '4':
-                $baseDir = storage_path(self::DIRECTORY.'/sw4');
-                break;
             case '5':
                 $baseDir = storage_path(self::DIRECTORY.'/sw5');
                 break;
