@@ -8,18 +8,16 @@ const ModalStore = {
     apiReturnType: null,
 
     toggle() {
-        const me = this;
-
-        me.loadAvailableVersions();
-        me.show = !!!me.show;
+        this.loadAvailableVersions()
+            .then(res => {
+                this.show = !!!this.show;
+            });
     },
 
     async loadAvailableVersions() {
-        const me = this;
-
-        await axios.get('api/version/' + me.selectedMajor)
+        await axios.get('api/version/' + this.selectedMajor)
             .then(res => {
-                me.apiReturnType = res.data.data.type;
+                this.apiReturnType = res.data.data.type;
 
                 let temp = [];
                 temp.push({ text: '', value: null, selected: true });
@@ -28,10 +26,10 @@ const ModalStore = {
                     temp.push({ value: version, text: version});
                 });
 
-                me.versions = temp;
+                this.versions = temp;
             })
             .catch(err => {
-                me.toggle();
+                this.toggle();
 
                 Swal.fire({
                     icon: 'error',

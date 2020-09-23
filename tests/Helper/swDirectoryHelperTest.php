@@ -10,14 +10,12 @@ class swDirectoryHelperTest extends TestCase
 {
     private function createSampleDirectories(): void
     {
-        File::makeDirectory(storage_path('app/public/shopware/sw4/sample'));
         File::makeDirectory(storage_path('app/public/shopware/sw5/sample'));
         File::makeDirectory(storage_path('app/public/shopware/sw6/sample'));
     }
 
     private function deleteSampleDirectories(): void
     {
-        File::deleteDirectory(storage_path('app/public/shopware/sw4/sample'));
         File::deleteDirectory(storage_path('app/public/shopware/sw5/sample'));
         File::deleteDirectory(storage_path('app/public/shopware/sw6/sample'));
     }
@@ -34,7 +32,6 @@ class swDirectoryHelperTest extends TestCase
         $versions = [
             '6.x' => 'sw6',
             '5.x' => 'sw5',
-            '4.x' => 'sw4',
         ];
 
         foreach ($versions as $major => $swVersion) {
@@ -57,7 +54,6 @@ class swDirectoryHelperTest extends TestCase
         $versions = [
             '6.0.0' => 'sw6',
             '5.0.0' => 'sw5',
-            '4.0.0' => 'sw4',
         ];
 
         foreach ($versions as $version => $expectedVersion) {
