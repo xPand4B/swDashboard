@@ -5,12 +5,10 @@ const DirectoryStore = {
     comments: [],
 
     async fetch() {
-        const me = this;
-
         await axios.get('api/directory')
             .then(res => {
-                me.apiReturnType = res.data.data.type;
-                me.availableDirectories = res.data.data.attributes;
+                this.apiReturnType = res.data.data.type;
+                this.availableDirectories = res.data.data.attributes;
             })
             .catch(err => {
                 Swal.fire({
@@ -20,14 +18,12 @@ const DirectoryStore = {
                 });
             });
 
-        const selectedVersion = Object.values(me.availableDirectories)[0][0].version;
+        const selectedVersion = Object.values(this.availableDirectories)[0][0].version;
 
-        this.getComments(selectedVersion);
+        await this.getComments(selectedVersion);
     },
 
     async addComment(version, comment) {
-        const me = this;
-
         await axios.post(`api/comment/${version}`, {
             comments: comment
         }).catch(err => {
@@ -38,18 +34,16 @@ const DirectoryStore = {
             });
         });
 
-        me.getComments(version);
+        await this.getComments(version);
     },
 
     async getComments(version) {
-        const me = this;
-
-        me.comments = [];
+        this.comments = [];
 
         await axios.get(`api/comment/${version}`)
             .then(res => {
                 if (res.data.comments !== undefined) {
-                    me.comments = res.data.comments;
+                    this.comments = res.data.comments;
                 }
             })
             .catch(err => {
@@ -62,8 +56,6 @@ const DirectoryStore = {
     },
 
     async deleteComment(version, comment) {
-        const me = this;
-
         await axios.post(`api/comment/${version}/delete`, {
             comments: comment
         }).catch(err => {
@@ -74,15 +66,13 @@ const DirectoryStore = {
             });
         });
 
-        await me.getComments(version);
+        await this.getComments(version);
     },
 
     deleteInstance(path = '') {
         if (path === '') {
             return;
         }
-
-        const me = this;
 
         Swal.fire({
             icon: 'question',
@@ -110,7 +100,7 @@ const DirectoryStore = {
                 axios.post('api/directory/delete', {
                     swPathToDelete: path
                 }).then(res => {
-                    me.fetch();
+                    this.fetch();
                     Toast.close();
                     Toast.fire({
                       icon: 'success',
