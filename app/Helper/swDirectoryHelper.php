@@ -9,7 +9,7 @@ class swDirectoryHelper
     /**
      * @var string
      */
-    private const DIRECTORY = 'app/public/shopware';
+    private const DIRECTORY = 'app'.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'shopware';
 
     /**
      * Get all available shopware instance directories.
@@ -75,10 +75,10 @@ class swDirectoryHelper
 
         switch ($version[0]){
             case '5':
-                $baseDir = storage_path(self::DIRECTORY.'/sw5');
+                $baseDir = storage_path(self::DIRECTORY.DIRECTORY_SEPARATOR.'sw5');
                 break;
             case '6':
-                $baseDir = storage_path(self::DIRECTORY.'/sw6');
+                $baseDir = storage_path(self::DIRECTORY.DIRECTORY_SEPARATOR.'sw6');
                 break;
         }
 

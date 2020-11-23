@@ -47,7 +47,8 @@ class swDirectoryController extends Controller
         $majorDir = $this->getMajorFromVersion($swVersion);
 
         $downloadLink = swVersionHelper::GetLinkByVersion($swVersion);
-        $filePath = storage_path('app/public/shopware/'.$majorDir.'/'.$swVersion);
+        $filePath = 'app/public/shopware/'.$majorDir.'/'.$swVersion;
+        $filePath = storage_path(str_replace('/', DIRECTORY_SEPARATOR, $filePath));
         $fileName = $swVersion.'.zip';
 
         if (file_exists($filePath)) {
@@ -58,7 +59,7 @@ class swDirectoryController extends Controller
 
         File::makeDirectory($filePath);
 
-        if (! $this->downloadUrlToFile($downloadLink, $filePath.'/'.$fileName)) {
+        if (! $this->downloadUrlToFile($downloadLink, $filePath.DIRECTORY_SEPARATOR.$fileName)) {
             File::deleteDirectory($filePath);
 
             return response()->json(
@@ -66,7 +67,7 @@ class swDirectoryController extends Controller
             );
         }
 
-        if (! $this->unzipFile($filePath.'/'.$fileName, $filePath)) {
+        if (! $this->unzipFile($filePath.DIRECTORY_SEPARATOR.$fileName, $filePath)) {
             File::deleteDirectory($filePath);
 
             return response()->json(
@@ -74,10 +75,10 @@ class swDirectoryController extends Controller
             );
         }
 
-        File::delete($filePath.'/'.$fileName);
+        File::delete($filePath.DIRECTORY_SEPARATOR.$fileName);
 
         if ($majorDir === 'sw6') {
-            symlink($filePath.'/public', public_path(str_replace('.', '-', $swVersion)));
+            symlink($filePath.DIRECTORY_SEPARATOR.'public', public_path(str_replace('.', '-', $swVersion)));
         } else {
             symlink($filePath, public_path(str_replace('.', '-', $swVersion)));
         }

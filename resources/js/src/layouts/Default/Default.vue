@@ -6,7 +6,15 @@
             toggleable="sm"
         >
             <template v-slot:right-items>
-                <b-nav-item @click="regenerateCache">
+                <b-nav-item
+                    @click="regenerateCache"
+                    :disabled="loading"
+                >
+                    <b-spinner
+                        v-if="loading"
+                        small
+                        label="Re-generating cache..."
+                    />
                     Re-generate cache
                 </b-nav-item>
             </template>
@@ -29,19 +37,24 @@
 
         data: () => ({
             brandText: 'swDashboard',
-            brandImage: './img/sw6-logo.png'
+            brandImage: './img/sw6-logo.png',
+            loading: false
         }),
 
         methods: {
             regenerateCache() {
+                this.loading = true;
+
                 axios.get('api/cache/regenerate')
                     .then(res => {
-                        Swal.fire({
+                        this.loading = false;
+                        Toast.fire({
                             icon: 'success',
                             title: res.data
                         });
                     })
                     .catch(err => {
+                        this.loading = false;
                         Swal.fire({
                             icon: 'error',
                             title: 'Something went wrong!',
